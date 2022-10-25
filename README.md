@@ -39,7 +39,7 @@ You should see
 
 Then you can git clone GPU lab codes and do some tests
 ```
-git clone https://gitlab.tue.nl/20177018/gpu2021.git
+git clone https://github.com/sunlex0717/ECA-GPU2022
 cd gpu2020/MatrixMultiplication/CUDAtiling
 sbatch run_prog.run
 ```
