@@ -1,11 +1,11 @@
-TARGET = arm_img_proc
-CFLAGS =-O0 -g -Wall
+TARGET = arm_img_proc.app
+CC = nvcc
 HEADERS = $(wildcard *.h)
-SOURCES = $(wildcard *.c )
+SOURCES = $(wildcard *.cpp )
 OBJECTS = $(SOURCES:.c=.o)
 
 all $(TARGET): $(SOURCES)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES) -lm
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f *.bmp arm_img_proc
