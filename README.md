@@ -1,16 +1,20 @@
 
-# Organization
+# ECA-Lab2 GPU programming
 
-GPU is one of the most popular platforms which are designed for speeding up applications on CPU. Unlike CPU, GPU can handle tremendous threads in parallel which can potentially bring a significant speed-up. In this Assignment, you will be asked to optimize the 2d convolution on GPU. To ease your GPU programming journey, we will first start with 1D convolution example. Some optimization techniques will be introduced in 1D convolution exercise. Then you will be asked to implement 2D convolution by CUDA and apply (as much as possible) effective GPU optimizations to speed-up your Naive CUDA implementation. 
+GPU is one of the most popular platforms which are designed for speeding up applications on CPU. Unlike CPU, GPU can handle tremendous threads in parallel which can potentially bring a significant speed-up. In this lab, you will learn to how map sequential CPU programs on GPU via CUDA programming language. 
+
+You will be provided with two image processing kernels in C. You tasks are to map these two kernels on Nvidia GPU with CUDA programming language. You will need to profile your implementations and analyze the speed-up you can get. 
+
+<!-- In this Assignment, you will be asked to optimize the 2d convolution on GPU. To ease your GPU programming journey, we will first start with 1D convolution example. Some optimization techniques will be introduced in 1D convolution exercise. Then you will be asked to implement 2D convolution by CUDA and apply (as much as possible) effective GPU optimizations to speed-up your Naive CUDA implementation.  -->
 
 
-This assignment consists of two parts, the first part is a 1D convolution exercise to guide you how to build CUDA program through step-by-step instructions. The second part is 2D convolution CUDA programming task where you have more freedom to practice what you have learned. You are free to apply whatever optimization techniques you want. You need to explain your implementation and optimization techniques you used, and test the speed-up gains of your implementation under different problem sizes as well your reasoning of the speed-up gains in your report.
+<!-- This assignment consists of two parts, the first part is a 1D convolution exercise to guide you how to build CUDA program through step-by-step instructions. The second part is 2D convolution CUDA programming task where you have more freedom to practice what you have learned. You are free to apply whatever optimization techniques you want. You need to explain your implementation and optimization techniques you used, and test the speed-up gains of your implementation under different problem sizes as well your reasoning of the speed-up gains in your report. -->
 
 
-# 1D Convolution exercise
-This simple exercise will help you quickly start CUDA programming, if you have understood the concepts we introduced in lab tutorial, then this exercise should be straightforward and easy for you.
+<!-- # 1D Convolution exercise
+This simple exercise will help you quickly start CUDA programming, if you have understood the concepts we introduced in lab tutorial, then this exercise should be straightforward and easy for you. -->
 
-## Setup of the your working environment
+# Preparation
 We will use the university HPC cluster for GPU assignment. You can login using your student number (e.g. 20177347) and corresponding password(**Password is the one you use for your TU/e Email and TU/e VPN should be enabled**). .If you are not familiar with SSH, just google it and you will find plenty of methods of how to login in a server through SSH terminal. For windows user you can use [MobaXterm](https://mobaxterm.mobatek.net/). And create a session like this 
 
 
@@ -76,9 +80,14 @@ Total Errors = 0
 
 ## Study Matrix Multiplication cookbook
 
-Before you start the 1D convolution exercise, you are strongly recommended to read our [matrix multiplication cookbook](https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html) and understand the introduced optimization techniques. The contents in [matrix multiplication cookbook](https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html) will **possibly be treated in the final exam**. Note, you only need to read the material and do not clone the old codes. We provide new codes this year (gpu2020/MatrixMultiplication/), feel free to modify the codes and test different matrix sizes.
+Before you start the programming tasks, you are strongly recommended to read our [matrix multiplication cookbook](https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html) and understand the introduced optimization techniques. The contents in [matrix multiplication cookbook](https://ecatue.gitlab.io/gpu2018/pages/Cookbook/matrix_multiplication_cuda.html) will **possibly be treated in the final exam**. Note, you only need to read the material and do not clone the old codes. We provide new codes this year (in MatrixMultiplication folder), feel free to modify the codes and test different matrix sizes.
 
-## The 1D convolution: C implementation
+
+
+# Image processing kernels
+We provide two image kernels - greyscale.c and  
+
+
 
 
 
