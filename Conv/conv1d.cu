@@ -9,9 +9,10 @@
 #include <chrono>// timer library
 
 //feel free to change these parameters when you do experiments
-#define DATA_SIZE 51200
-#define BLOCK_SIZE 256
-#define MASK_WIDTH 155 // we assune the mask width should be odd value
+#define DATA_SIZE 1024
+#define MASK_WIDTH 5 // we assune the mask width should be odd value, can be 3 5 7 for instance
+#define BLOCK_SIZE 128
+
 
 #define TEST_ROUNDS 1000
 

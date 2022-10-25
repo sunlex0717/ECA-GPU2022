@@ -2,6 +2,10 @@
     "files.associations": {
         "xiosbase": "cpp",
         "iostream": "cpp",
-        "image_processing_functions.h": "c"
+        "image_processing_functions.h": "c",
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp"
     }
 }

@@ -155,7 +155,7 @@ uint32_t readBMP(char const * const file, uint8_t ** frame, uint32_t * const x_s
     if (i != 0) for (uint32_t k = 0; k < padding; k++) (void) readByte;
   }
   if (fd) fclose(fd);
-  return 1;
+  return bytesize;
 }
 
 

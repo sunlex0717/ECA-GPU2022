@@ -1,14 +1,9 @@
-#include "image_processing_functions.h"
-#include "image_processing_functions_gpu.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 #include <math.h>
-
-
-
-
+#include "image_processing_functions.h"
 
 int main(int argc, char ** argv)
 {
@@ -23,7 +18,7 @@ int main(int argc, char ** argv)
   uint32_t xsize3, ysize3, bitsperpixel3;
   // uint32_t xsize4, ysize4, bitsperpixel4;
   // uint32_t xsize5, ysize5, bitsperpixel5;
-  uint8_t threshold;
+
   uint8_t * frame1 = NULL;
   if (!readBMP(argv[1], &frame1, &xsize1, &ysize1, &bitsperpixel1)) return 1;
 
@@ -36,7 +31,7 @@ int main(int argc, char ** argv)
     bytes2 = xsize2*ysize2*(bitsperpixel2/8);
     frame2 = (uint8_t *) malloc (bytes2);
     greyscale(frame1, xsize1, ysize1, bitsperpixel1, frame2);
-    threshold = 128;
+
     xsize3 = xsize2;
     ysize3 = ysize2;
     bitsperpixel3 = bitsperpixel2;
@@ -50,7 +45,7 @@ int main(int argc, char ** argv)
     bytes3 = xsize3*ysize3*(bitsperpixel3/8);
     frame3 = (uint8_t *) malloc (bytes3);
     convolution(frame1, xsize1, ysize1, bitsperpixel1, conv_gaussianblur5, 5, 5, frame3);
-    threshold = 100;
+
   }
       
   // xsize4 = xsize3;

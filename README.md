@@ -84,12 +84,7 @@ Before you start the programming tasks, you are strongly recommended to read our
 
 
 
-# Image processing kernels
-We provide two image kernels - greyscale.c and  
-
-
-
-
+# Example - convlution1D
 
 <div align=center>
 <img src="./docs/ECA2021-conv1d.png" width="500">
@@ -160,12 +155,10 @@ __global__ void convolution_1D_basic_kernel(float *in, float *m, float *out, int
 } 
 ```
 
-## Programming Task 1 : Implement tiled 1D convolution
-
-In 1D stencil tutorial, we discussed how to apply tiling and shared memory to reduce the redundant GPU global memory accesses. Due to the similarities of 1D convolution and 1D stencil, we can consider using similar techniques to speed-up our Naive 1D implementation. In this programming exercise, you need to implement tiled 1D convolution yourself. Code template can be found in 
+The above codes can be found in
 
 ```
-gpu2020/Conv/conv1d.cu
+./Conv/conv1d.cu
 ```
 
 You can first run the provided [conv1d.cu](./Conv/conv1d.cu) through
@@ -178,93 +171,16 @@ Wait and open the corresponding slurm-[#]].out file.
 ```
 C program time  : 26.8185 ms
 Naive CUDA Kernel Execution time(without data transfer time) = 0.439475 ms
-Tiled Kernel Execution time(without data transfer time) = 0.0310953 ms
-average errors = 3.374
- error: Check your CUDA implementation! the result is not numerically correct compared to C program
-Tiled + Const Mem CUDA Kernel Execution time(without data transfer time) = 0.0236085 ms
-average errors = 3.13683
- error: Check your CUDA implementation! the result is not numerically correct compared to C program
 ```
 
-
-It indicates that C implementation and Naive CUDA implementation are successfully run, there are two errors because you should implement these two kernels yourself as programming task 1 (this section) and programming task 2 (will be introduced later}).
-
-## Optimization technique: Constant Memory
-
-<div align=center>
-<img src="./docs/MemoryCUDA.jpg" width="500">
-</div>
-
-<div align=center>
-Fig 2: Overview of CUDA device memory
-</div>
+You can try with different MASK_WIDTH and DATA_SIZE then see how the gap between CPU and GPU changes. 
 
 
+# Programming Task : image processing kernels
 
-Apart from tiling and shared memory, constant memory can be used to speed-up our implementation further. So, what is Constant memory? Figure 2 shows an overview of CUDA device memory architecture. Constant memory provides better performance than global memory in read-only mode (Think about Why?). In our 1D convolution example, it is common in practice that Mask/Filter values will not be changed. Due to this property, it is wise to move the mask/filter data array to constant memory. 
+Study the cpu codes and implement GPU version. Measure the speed-up with different input image sizes. 
 
-The following code piece demonstrates how to use constant memory.
-
-```c++
-//.....
-#define MASK_WIDTH 255 
-//.....
-__constant__ float mask_const[MASK_WIDTH];
-
-//.....
-
-//Note the we have different argument list here
-__global__ void convolution_1D_basic_const_kernel(float *in,  float *out, int Mask_Width, int Width) {
-    // ....
-        result += temp[threadIdx.x + j]*mask_const[j];
-    // ...
-}
-
-int main(){
-
-    //...
-    float mask[MASK_WIDTH]; //host data
-    //...
-    // copy from host memory(CPU) to constant memory
-    cudaMemcpyToSymbol(mask_const,mask,size_mask);
-    // ...
-
-}
-```
-
-## Programming Task 2 : Use constant memory
-
-In this task, you need to use constant memory to store your Mask data array. How to use constant memory in CUDA  has been introduced in previous section. There are also some online examples which you can find online.
-
-## Task 3 : Experiments
-
-In order to understand of the impact of the optimization techniques under different situations (e.g. different Mask widths and Input size widths), we need to do some experiments. In this task, you are asked to test the the execution time of **1) C implementation**, **2) Naive CUDA implementation** **3)Tiled convolution** and **4) Tiled convolution with constant memory** under different problem sizes. For instance:
-
-* Input data = [128,512,1024,4096,10240] 
-* Mask width = [3,7,16,32,64,128]
-
-We have provided the first two implementations, 3) and 4) are your programming tasks (task 1 and task 2). You are expected to **visualize** the experimental results you get in meaningful ways (e.g. using line charts). So do not directly put tables with raw data in your report.
-
-# 2D convolution
-
-In this task, you need to implement 2D convolution (Figure 3) in CUDA. This is a relatively open task. There are not strict requirements of how you should implement and what optimization techniques you should use. You can apply what you have learned from 1D convolution tutorial.  If you can successfully apply these two techniques, you will get base scores. If you want to get full points(10), then you need to
-apply different advanced techniques (for instance, techniques in matrix multiplication cookbook) which have not been introduced in previous 1D stencil tutorial as long as you can motivate your decision in your report. 
-
-In summary you should
-* Implement a baseline 2D convolution on GPU and verify the correctness by the CPU-based implementation (conv2d_host in [conv2d.cu](./Conv/conv2d.cu)).
-* Implement a optimized 2D Convolution by using tiling and constant memory 
-* Apply different optimizations 
-* Test the speed-up under different problem sizes and mask with.
-
-
-
-<div align=center>
-<img src="./docs/ECA2021-Conv2D.png" width="500">
-</div>
-
-<div align=center>
-Fig 3: 2D Convolution
-</div>
+TODO: add some explainations
 
 
 # Submission
@@ -273,24 +189,15 @@ You should write down **a lab report(PDF)** the final submission together with *
 
 1. Your name and student number.
 1. If you discuss/cooperate with your fellow students, you should explicitly write down his/her names and student numbers. Please note that every student has to write their lab report **individually**.
-1. Your experiments of 1D convolution (Task 3). You are expected to explain the results you get. You should also provide some insights you get from your results. Note that explanations/insights are more important than the numbers. 
-1. Explain your implementation of 2D convolution. 
+1. Explain/profile your implementations. 
    1. How you verified the correctness of your CUDA program.
    1. What optimization techniques you used. What are the impact of them under different problem sizes. Does all optimization techniques you used work well? 
    1. Experimental results and explanations/insights. 
-   1. Note that you are encouraged to learn and try different optimization techniques, even though some of them may not bring a significant speed-up or even make your program slower. If you can write down what you have tried and explain the results in a good reasoning line, you still can get corresponding scores. 
+
 
 You need to submit your codes in a **zip** or **tar** file. Note, do not add your PDF to zip file, you should submit your codes(zip) + report(PDF) separately. 
 
-## Scoring
 
-1. you can get maximum 8 points if you successfully finish
-    1. 1D convolution exercise
-    2. 2D convolution implementation by only applying tiling + constant memory
-    3. Clear report.
-2. To get full points (10),
-    1. you need to apply different techniques.
-    2. You should explain the techniques you applied and the impact clearly in your report.
 
 ## Final remark
 
