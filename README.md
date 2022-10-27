@@ -178,7 +178,7 @@ You can try with different MASK_WIDTH and DATA_SIZE then see how the gap between
 
 # Programming Task : image processing kernels
 
-Study the cpu codes and implement GPU version. Measure the speed-up with different input image sizes. 
+Study the cpu codes (./img-proc) and implement GPU version. Measure the speed-up with different input image sizes. 
 
 TODO: add some explainations
 
